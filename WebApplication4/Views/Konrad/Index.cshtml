@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (@Html.BeginForm("", "", FormMethod.Post, new {enctype = "multipart/form-data"}))
+{
+    <div class="form-group">
+        <input type="file" id="file"/>
+        <button class="btn btn-success" id="upload">Upload file <span class="glyphicon glyphicon-upload"></span></button>
+        <button class="btn btn-success" id="uploadPro">Upload pro file <span class="glyphicon glyphicon-upload"></span></button>
+
+    </div>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(() => {
+            $("#upload").on('click',
+                (event) => {
+                    let file = $("#file").get(0).files[0];
+                    var fileData = new FormData();
+                    fileData.append("file", file, file.name);
+                    $.ajax({
+                        url: "/Konrad/UploadPro",
+                        type: "POST",
+                        data: fileData,
+                        contentType: false,
+                        processData: false,
+                    }).success((data) => {
+                        alert("Success");
+                    });
+                    event.preventDefault();
+                });
+
+            $("#uploadPro").on('click',
+                (event) => {
+                    let file = $("#file").get(0).files[0];
+                    var fileData = new FormData();
+                    fileData.append("file", file, file.name);
+                    $.ajax({
+                        url: "/Konrad/UploadPro",
+                        type: "POST",
+                        data: fileData,
+                        contentType: false,
+                        processData: false,
+                    }).success((data) => {
+                        alert("Success");
+                    });
+                    event.preventDefault();
+                });
+        });
+
+    </script>
+}
