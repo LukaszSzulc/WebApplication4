@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.ModelBinding;
+﻿using System.Web;
 using System.Web.Mvc;
-using IModelBinder = System.Web.ModelBinding.IModelBinder;
 using ModelBindingContext = System.Web.Mvc.ModelBindingContext;
 
 namespace WebApplication4.Controllers
@@ -41,10 +36,11 @@ namespace WebApplication4.Controllers
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             var file = controllerContext.HttpContext.Request.Files["file"];
-
+            var firstName = controllerContext.HttpContext.Request["firstName"];
             return new Model
             {
-                File = file
+                File = file,
+                FirstName = firstName
             };
         }
     }
@@ -52,6 +48,7 @@ namespace WebApplication4.Controllers
     [ModelBinder(typeof(CustomModelBinder))]
     public class Model
     {
+        public string FirstName { get; set; }
         public HttpPostedFileBase File { get; set; }
     }
 }

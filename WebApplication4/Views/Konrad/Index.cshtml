@@ -8,6 +8,8 @@
 @using (@Html.BeginForm("", "", FormMethod.Post, new {enctype = "multipart/form-data"}))
 {
     <div class="form-group">
+        <label>First Name</label>
+        <input type="text" class="form-control" id="firstName"/>
         <input type="file" id="file"/>
         <button class="btn btn-success" id="upload">Upload file <span class="glyphicon glyphicon-upload"></span></button>
         <button class="btn btn-success" id="uploadPro">Upload pro file <span class="glyphicon glyphicon-upload"></span></button>
@@ -41,6 +43,7 @@
                     let file = $("#file").get(0).files[0];
                     var fileData = new FormData();
                     fileData.append("file", file, file.name);
+                    fileData.append("firstName", $("#firstName").val());
                     $.ajax({
                         url: "/Konrad/UploadPro",
                         type: "POST",
